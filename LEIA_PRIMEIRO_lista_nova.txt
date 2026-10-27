@@ -1,0 +1,5 @@
+CHÁ DE CASA NOVA — catálogo atualizado.
+
+Os itens da categoria Quarto foram retirados da lista. Os itens de limpeza e lavanderia (Aspirador de pó, Ferro de passar roupa e Tábua de passar roupa) continuam na lista.
+
+Para aplicar no site, publique os arquivos atualizados no GitHub. O SQL de configuração também remove os itens da categoria Quarto do catálogo, caso não existam reservas vinculadas.
