@@ -1,3 +1,14 @@
+-- v3: CORRIGE O SITE NÃO MOSTRAR "INDISPONÍVEL" E NÃO CANCELAR.
+-- Verificado em 27/10: o banco estava sem as funções novas e sem permissão de leitura da lista de presentes.
+-- Execute TODO este arquivo no SQL Editor do Supabase e clique em RUN.
+
+grant usage on schema public to anon, authenticated;
+alter table public.gifts enable row level security;
+drop policy if exists "public can read gifts" on public.gifts;
+create policy "public can read gifts" on public.gifts for select to anon, authenticated using (true);
+grant select on public.gifts to anon, authenticated;
+grant execute on function public.reserve_gift(uuid,text) to anon, authenticated;
+
 -- CHA DE CASA NOVA — SABRINA & LUCAS
 -- Atualização: cancelamento por nome e sobrenome, disponibilidade visível para todos .
 -- Execute UMA VEZ no SQL Editor do Supabase (projeto qtxdtjvgnknfzpttrvhl), DEPOIS do supabase_configuracao_completa.sql.
@@ -54,5 +65,7 @@ begin
 end; $$;
 revoke all on function public.cancel_gift_reservation_by_name(uuid,text) from public;
 grant execute on function public.cancel_gift_reservation_by_name(uuid,text) to anon, authenticated;
+
+notify pgrst, 'reload schema';
 
 select 'reservas ativas' as verificacao, count(*) from public.gift_reservations where cancelled_at is null;
