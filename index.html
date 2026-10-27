@@ -124,132 +124,17 @@ function getLocalReservations(){try{return JSON.parse(localStorage.getItem(LOCAL
 function saveLocalReservation(item){const all=getLocalReservations().filter(x=>x.gift_id!==item.gift_id);all.push(item);localStorage.setItem(LOCAL_RESERVATIONS_KEY,JSON.stringify(all))}
 function removeLocalReservation(giftId){localStorage.setItem(LOCAL_RESERVATIONS_KEY,JSON.stringify(getLocalReservations().filter(x=>x.gift_id!==giftId)))}
 function localReservationFor(giftId){return getLocalReservations().find(x=>String(x.gift_id)===String(giftId))}
-document.querySelectorAll('[data-answer]').forEach(b=>b.addEventListener('click',()=>{selectedAnswer=b.dataset.answer;document.querySelectorAll('[data-answer]').forEach(x=>x.classList.toggle('selected',x===b))}));i
-$('rsvp-form').addEventListener('submit',async e=>{e.preventDefault();const name=$('guest-name').value.trim(),msg=$('rsvp-message');if(name.length<2){toast(msg,'Informe seu nome completo para confirmar.',true);return}if(!supabaseClient){toast(msg,'O site ainda não conseguiu conectar ao banco. Confira a conexão e tente novamente.',true);return}try{const {error}=await supabaseClient.rpc('submit_rsvp',{p_guest_name:name,p_attending:selectedAnswer==='yes',p_guest_count:1});if(error)throw error;toast(msg,selectedAnswer==='yes'?'Que alegria! Sua presença foi confirmada. Estamos muito felizes em celebrar com você!':'Obrigada por avisar com carinho. Sentiremos sua falta!');$('guest-name').value=''}catch(err){console.error(err);toast(msg,'Não foi possível registrar sua resposta. Tente novamente em instantes.',true)}});dONÍVEL — já reservado'):'Disponível';c.appendChild(status);const actions=document.createElement('div');actions.className='actions';if(g.product_url){const a=document.createElement('a');a.className='btn btn-outline';a.href=g.product_url;a.target='_blank';a.rel='noopener noreferrer';a.textContent='Ver no Mercado Livre';actions.appendChild(a)}if(g.reserved){if(local){const cancel=document.createElement('button');cancel.type='button';cancel.className='btn btn-outline';cancel.textContent='Cancelar reserva';cancel.addEventListener('click',()=>cancelByName(g));actions.appendChild(cancel)}else{const unavailable=document.createElement('button');unavailable.type='button';unavailable.className='btn btn-outline';unavailable.textContent='Indisponível';unavailable.disabled=true;unavailable.style.opacity='.65';unavailable.style.cursor='not-allowed';actions.appendChild(unavailable);const byName=document.createElement('button');byName.type='button';byName.className='link-btn';byName.textContent='Foi você que reservou? Cancelar reserva';byName.addEventListener('click',()=>cancelByName(g));actions.appendChild(byName)}}else{const b=document.createElement('button');b.type='button';b.className='btn btn-navy';b.textContent='Reservar presente';b.addEventListener('click',()=>reserveGift(g));actions.appendChild(b)}c.appendChild(actions);card.appendChild(c);grid.appendChild(card)})}
+document.querySelectorAll('[data-answer]').forEach(b=>b.addEventListener('click',()=>{selectedAnswer=b.dataset.answer;document.querySelectorAll('[data-answer]').forEach(x=>x.classList.toggle('selected',x===b))}));
+$('rsvp-form').addEventListener('submit',async e=>{e.preventDefault();const name=$('guest-name').value.trim(),msg=$('rsvp-message');if(name.length<2){toast(msg,'Informe seu nome completo para confirmar.',true);return}if(!supabaseClient){toast(msg,'O site ainda não conseguiu conectar ao banco. Confira a conexão e tente novamente.',true);return}try{const {error}=await supabaseClient.rpc('submit_rsvp',{p_guest_name:name,p_attending:selectedAnswer==='yes',p_guest_count:1});if(error)throw error;toast(msg,selectedAnswer==='yes'?'Que alegria! Sua presença foi confirmada. Estamos muito felizes em celebrar com você!':'Obrigada por avisar com carinho. Sentiremos sua falta!');$('guest-name').value=''}catch(err){console.error(err);toast(msg,'Não foi possível registrar sua resposta. Tente novamente em instantes.',true)}});
+document.querySelectorAll('[data-category]').forEach(b=>b.addEventListener('click',()=>{activeCategory=b.dataset.category;document.querySelectorAll('[data-category]').forEach(x=>x.classList.toggle('active',x===b));renderGifts()}));
+function renderGifts(){const grid=$('gift-grid');const filtered=gifts.filter(g=>activeCategory==='Todos'||g.category===activeCategory);grid.innerHTML='';if(activeCategory==='Todos'){const pix=document.createElement('article');pix.className='gift pix-gift';const pc=document.createElement('div');pc.className='gift-content';pc.innerHTML='<div class="tag">Outra forma de presentear</div><h3>PIX</h3><p>Prefere contribuir com qualquer valor? Copie a nossa chave PIX.</p><div class="pixkey" style="background:#f5f1e6;border:1px dashed #d8c69f;border-radius:9px;padding:10px;font-size:13px;word-break:break-word">'+escapeHtml(CONFIG.pixKey)+'</div>';const pa=document.createElement('div');pa.className='actions';const pb=document.createElement('button');pb.className='btn';pb.id='copy-pix';pb.type='button';pb.textContent='Copiar PIX';pb.addEventListener('click',copyPix);pa.appendChild(pb);pc.appendChild(pa);pix.appendChild(pc);grid.appendChild(pix)}if(!filtered.length){grid.insertAdjacentHTML('beforeend','<div class="empty">'+(supabaseClient?'Ainda não há presentes cadastrados nesta categoria.':'Conectando à lista de presentes…')+'</div>');return}filtered.forEach(g=>{const card=document.createElement('article');card.className='gift'+(g.reserved?' reserved':'');const imgSrc=IMAGENS[g.id];if(imgSrc){const im=document.createElement('img');im.className='gift-img';im.src=imgSrc;im.alt=g.name;im.loading='lazy';im.onerror=()=>{const ph=document.createElement('div');ph.className='gift-img ph';ph.textContent='🎁';im.replaceWith(ph)};card.appendChild(im)}else{const ph=document.createElement('div');ph.className='gift-img ph';ph.textContent='🎁';card.appendChild(ph)}const c=document.createElement('div');c.className='gift-content';c.innerHTML=`<div class="tag">${escapeHtml(g.category||'Outros')}</div><h3>${escapeHtml(g.name)}</h3>`;if(g.price!==null&&g.price!==undefined&&g.price!==''){const p=document.createElement('p');p.textContent='Preço médio: R$ '+Number(g.price).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});c.appendChild(p)}const local=localReservationFor(g.id);const status=document.createElement('div');status.className='status '+(g.reserved?'taken':'');status.textContent=g.reserved?(local?'RESERVADO POR VOCÊ':'INDISPONÍVEL — já reservado'):'Disponível';c.appendChild(status);const actions=document.createElement('div');actions.className='actions';if(g.product_url){const a=document.createElement('a');a.className='btn btn-outline';a.href=g.product_url;a.target='_blank';a.rel='noopener noreferrer';a.textContent='Ver no Mercado Livre';actions.appendChild(a)}if(g.reserved){if(local){const cancel=document.createElement('button');cancel.type='button';cancel.className='btn btn-outline';cancel.textContent='Cancelar reserva';cancel.addEventListener('click',()=>cancelByName(g));actions.appendChild(cancel)}else{const unavailable=document.createElement('button');unavailable.type='button';unavailable.className='btn btn-outline';unavailable.textContent='Indisponível';unavailable.disabled=true;unavailable.style.opacity='.65';unavailable.style.cursor='not-allowed';actions.appendChild(unavailable);const byName=document.createElement('button');byName.type='button';byName.className='link-btn';byName.textContent='Foi você que reservou? Cancelar reserva';byName.addEventListener('click',()=>cancelByName(g));actions.appendChild(byName)}}else{const b=document.createElement('button');b.type='button';b.className='btn btn-navy';b.textContent='Reservar presente';b.addEventListener('click',()=>reserveGift(g));actions.appendChild(b)}c.appendChild(actions);card.appendChild(c);grid.appendChild(card)})}
 async function reserveGift(g){if(!supabaseClient){alert('O site ainda não está conectado ao banco.');return}const name=prompt('Digite seu NOME e SOBRENOME para reservar este presente.\nGuarde exatamente como digitou: ele será pedido caso queira cancelar.');if(name===null)return;if(!/\S+\s+\S+/.test(name.trim())){alert('Informe nome e sobrenome (ex.: Maria Silva).');return}try{const {data,error}=await supabaseClient.rpc('reserve_gift',{p_gift_id:g.id,p_guest_name:name.trim()});if(error)throw error;const row=Array.isArray(data)?data[0]:data;if(!row||!row.reservation_id||!row.cancellation_token)throw new Error('O banco não retornou o código de cancelamento. Confira se o SQL atualizado foi executado.');saveLocalReservation({gift_id:g.id,reservation_id:row.reservation_id,cancellation_token:row.cancellation_token});alert('Presente reservado com sucesso! Para cancelar depois, basta clicar em "Cancelar reserva" e informar o mesmo nome e sobrenome.');await loadGifts()}catch(e){console.error(e);alert((e.message||'Não foi possível reservar. Atualize a página e tente novamente.').includes('já foi reservado')?'Esse presente acabou de ser reservado por outra pessoa. A lista será atualizada.':'Não foi possível reservar. Confira se o SQL do site está atualizado e tente novamente.');await loadGifts()}}
 async function cancelMyReservation(g,local){if(!local)return;const ok=confirm('Quer mesmo liberar este presente para outro convidado?');if(!ok)return;try{const {data,error}=await supabaseClient.rpc('cancel_gift_reservation',{p_reservation_id:local.reservation_id,p_cancellation_token:local.cancellation_token});if(error)throw error;if(data!==true)throw new Error('O banco não confirmou o cancelamento.');removeLocalReservation(g.id);alert('Reserva cancelada. O presente voltou a ficar disponível.');await loadGifts()}catch(e){console.error(e);alert('Não foi possível cancelar a reserva. Se você limpou os dados do navegador, o código salvo pode ter sido perdido.')}}
-async function 
-async function cancelByName(g) {
-  if (!supabaseClient) {
-    alert('Não foi possível conectar ao banco de dados.');
-    return;
-  }
-
-  const name = prompt(
-    'Digite o nome e sobrenome usados na reserva:'
-  );
-
-  if (name === null) return;
-
-  if (!/\S+\s+\S+/.test(name.trim())) {
-    alert('Informe nome e sobrenome.');
-    return;
-  }
-
-  try {
-    const { data, error } = await supabaseClient.rpc(
-      'cancel_gift_reservation_by_name',
-      {
-        p_gift_id: g.id,
-        p_guest_name: name.trim()
-      }
-    );
-
-    if (error) throw error;
-
-    if (data !== true) {
-      alert(
-        'O nome não corresponde à reserva. Confira e tente novamente.'
-      );
-      return;
-    }
-
-    removeLocalReservation(g.id);
-
-    alert('Reserva cancelada! O presente voltou a ficar disponível.');
-
-    await loadGifts();
-
-  } catch (error) {
-    console.error('Erro ao cancelar reserva:', error);
-    alert(
-      'Não foi possível cancelar a reserva. Tente novamente.'
-    );
-  }
-}
-
-
-async function loadGifts() {
-  const grid = $('gift-grid');
-
-  if (!grid) return false;
-
-  // Mostra carregamento somente enquanto a consulta está em andamento.
-  grid.innerHTML = '<div class="empty">Carregando a lista de presentes…</div>';
-
-  try {
-    if (!supabaseClient) {
-      throw new Error('Não foi possível conectar ao banco de dados.');
-    }
-
-    const { data, error } = await supabaseClient
-      .from('gifts')
-      .select('id,name,category,purchase_url,price,sort_order')
-      .order('sort_order');
-
-    if (error) throw error;
-
-    if (!Array.isArray(data)) {
-      throw new Error('A lista de presentes retornou um formato inválido.');
-    }
-
-    const { data: reservedData, error: reservedError } =
-      await supabaseClient.rpc('get_reserved_gift_ids');
-
-    if (reservedError) throw reservedError;
-
-    const reservedIds = new Set(
-      (reservedData || []).map(item =>
-        typeof item === 'string'
-          ? item
-          : item.gift_id || item.get_reserved_gift_ids
-      ).filter(Boolean).map(String)
-    );
-
-    gifts = data.map(gift => ({
-      ...gift,
-      id: String(gift.id),
-      product_url: gift.purchase_url || '',
-      reserved: reservedIds.has(String(gift.id))
-    }));
-
-    renderGifts();
-    return true;
-
-  } catch (error) {
-    console.error('Erro ao carregar presentes:', error);
-
-    grid.innerHTML = `
-      <div class="empty">
-        <p>Não foi possível carregar a lista de presentes.</p>
-        <p>Verifique sua conexão e tente novamente.</p>
-        <button type="button" class="btn btn-navy" id="retry-gifts">
-          Tentar novamente
-        </button>
-      </div>
-    `;
-
-    const retry = $('retry-gifts');
-    if (retry) {
-      retry.addEventListener('click', loadGifts);
-    }
-
-    return false;
-  }
-}
-
+async function cancelByName(g){if(!supabaseClient)return;const name=prompt('Para cancelar, digite o NOME e SOBRENOME usados na reserva:');if(name===null)return;if(!/\S+\s+\S+/.test(name.trim())){alert('Informe nome e sobrenome.');return}try{const {data,error}=await supabaseClient.rpc('cancel_gift_reservation_by_name',{p_gift_id:g.id,p_guest_name:name.trim()});if(error)throw error;if(data!==true){alert('O nome informado não corresponde ao da reserva. Confira o nome e sobrenome e tente novamente.');return}removeLocalReservation(g.id);alert('Reserva cancelada. O presente voltou a ficar disponível.');await loadGifts()}catch(e){console.error(e);alert('Não foi possível cancelar agora. Tente novamente em instantes.')}}
+let _loadingGifts=false;function withTimeout(p,ms){return Promise.race([p,new Promise((_,rej)=>setTimeout(()=>rej(new Error('Tempo esgotado ao consultar o banco.')),ms))])}
+async function loadGifts(){if(!supabaseClient){gifts=FALLBACK_GIFTS;renderGifts();return false}if(_loadingGifts)return false;_loadingGifts=true;try{let {data,error}=await withTimeout(supabaseClient.from('gifts').select('id,name,category,purchase_url,price,sort_order').order('sort_order'),10000);if(error){console.warn('Lista do banco indisponível, usando lista do site:',error.message);data=FALLBACK_GIFTS.map(g=>({...g,purchase_url:g.product_url}))}const reservedResult=await withTimeout(supabaseClient.rpc('get_reserved_gift_ids'),10000);if(reservedResult.error)throw reservedResult.error;const reservedIds=new Set((reservedResult.data||[]).map(r=>typeof r==='string'?r:(r.gift_id||r.get_reserved_gift_ids)));gifts=(data||[]).map(g=>({...g,product_url:g.purchase_url,reserved:reservedIds.has(g.id)}));renderGifts();return true}catch(e){console.error('Não foi possível carregar os presentes do Supabase:',e);gifts=FALLBACK_GIFTS.map(g=>({...g,reserved:false}));renderGifts();$('gift-grid').insertAdjacentHTML('afterbegin','<div class="empty">Não foi possível atualizar a disponibilidade agora. Atualize a página em instantes.</div>');return false}finally{_loadingGifts=false}}
 async function copyPix(){if(!CONFIG.pixKey||CONFIG.pixKey==='A definir'){alert('A chave PIX ainda precisa ser configurada no arquivo index.html.');return}try{await navigator.clipboard.writeText(CONFIG.pixKey);const b=$('copy-pix');if(b)b.textContent='PIX copiado!'}catch(e){alert('Chave PIX: '+CONFIG.pixKey)}}
-async function connectSupabase(){try{if(!window.supabase){await new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';s.onload=resolve;s.onerror=()=>reject(new Error('Não foi possível carregar o Supabase.'));document.head.appendChild(s)})}supabaseClient=window.supabase.createClient(CONFIG.url,CONFIG.anonKey);await loadGifts()}catch(e){console.error('Falha ao conectar ao Supabase; exibindo lista local de presentes:',e);supabaseClient=null;gifts=FALLBACK_GIFTS;renderGifts()}}
+async function connectSupabase(){try{if(!window.supabase){await new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';s.onload=resolve;s.onerror=()=>reject(new Error('Não foi possível carregar o Supabase.'));document.head.appendChild(s)})}supabaseClient=window.supabase.createClient(CONFIG.url,CONFIG.anonKey,{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}});await loadGifts()}catch(e){console.error('Falha ao conectar ao Supabase; exibindo lista local de presentes:',e);supabaseClient=null;gifts=FALLBACK_GIFTS;renderGifts()}}
 connectSupabase();
 setInterval(()=>{if(supabaseClient&&document.visibilityState==='visible')loadGifts()},20000);
 </script>
