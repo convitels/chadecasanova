@@ -8,7 +8,7 @@
 :root{--navy:#142b49;--navy2:#203e61;--blue:#6e879f;--cream:#f8f7f3;--white:#fff;--ink:#263447;--muted:#6c7785;--line:#e3e7ec;--gold:#c4a875}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif}button,input,select{font:inherit}button,a{transition:.2s}a{color:inherit}.hero{background:linear-gradient(145deg,#10243e,#203f63);color:white;text-align:center;padding:70px 20px 62px;position:relative;overflow:hidden}.hero:before,.hero:after{content:"";position:absolute;border:1px solid #ffffff22;border-radius:50%;width:320px;height:320px}.hero:before{left:-190px;top:-130px}.hero:after{right:-180px;bottom:-200px}.eyebrow{text-transform:uppercase;letter-spacing:.22em;font-size:11px;color:#d8c69f}.hero h1{font:500 clamp(40px,7vw,68px) 'Playfair Display',serif;margin:16px 0 8px}.amp{font:italic 28px 'Playfair Display',serif;color:#d8c69f}.hero p{max-width:550px;line-height:1.8;margin:22px auto;color:#e3eaf1}.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:999px;padding:13px 21px;text-decoration:none;font-weight:700;cursor:pointer}.btn-light{background:white;color:var(--navy)}.btn-navy{background:var(--navy);color:white}.btn-outline{border:1px solid var(--line);background:white;color:var(--navy)}.btn:hover{transform:translateY(-1px);filter:brightness(.97)}main{max-width:1100px;margin:auto;padding:34px 20px 70px}.section{padding:35px 0}.section-head{text-align:center;margin-bottom:24px}.section-head .eyebrow{color:var(--blue)}h2{font:500 clamp(28px,4vw,38px) 'Playfair Display',serif;color:var(--navy);margin:8px 0}.section-head p{color:var(--muted);line-height:1.7;margin:8px auto;max-width:620px}.details{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:-12px}.detail{background:white;border:1px solid var(--line);border-radius:16px;padding:23px 18px;text-align:center}.detail .symbol{font-size:22px;color:var(--blue)}.detail strong{display:block;color:var(--navy);margin:9px 0}.detail span{font-size:14px;color:var(--muted);line-height:1.6}.notice{background:#eef2f6;border:1px solid #dbe3eb;padding:16px 18px;border-radius:14px;margin:20px auto 0;max-width:780px;text-align:center;line-height:1.7}.panel{background:white;border:1px solid var(--line);border-radius:20px;padding:24px;max-width:760px;margin:0 auto;box-shadow:0 12px 35px #142b4908}.formrow{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:flex;flex-direction:column;gap:7px;margin:10px 0}.field label{font-size:13px;font-weight:700;color:var(--navy)}.field input,.field select{width:100%;border:1px solid #d9e0e7;border-radius:10px;padding:12px 13px;background:#fff;outline:none}.field input:focus,.field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px #6e879f20}.choices{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}.choice{flex:1;min-width:190px;border:1px solid var(--line);background:white;border-radius:12px;padding:14px;text-align:left;cursor:pointer}.choice.selected{border-color:var(--blue);background:#f1f5f8}.choice b{display:block;color:var(--navy);margin-bottom:4px}.choice small{color:var(--muted);line-height:1.5}.msg{display:none;margin-top:14px;padding:14px;border-radius:12px;background:#f0f5f1;color:#315e43;line-height:1.6}.msg.show{display:block}.toolbar{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:18px 0}.chip{border:1px solid #d8dfe6;background:white;border-radius:999px;padding:9px 15px;color:var(--navy);cursor:pointer}.chip.active{background:var(--navy);border-color:var(--navy);color:white}.gift-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
 /* --- AJUSTE: Altura mínima do card aumentada --- */
-.gift{background:white;border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;min-width:0; min-height: 480px;}
+.gift{background:white;border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;min-width:0; min-height: 580px;}
 /* --- AJUSTE: Altura da imagem aumentada --- */
 .gift-img{width:100%;height:260px;object-fit:cover;background:#eef2f6;display:block}
 .gift-img.ph{display:flex;align-items:center;justify-content:center;font-size:42px;color:#b8c4d0}.gift.reserved .gift-img{filter:grayscale(.7);opacity:.7}.link-btn{background:none;border:0;color:var(--blue);font-size:12px;text-decoration:underline;cursor:pointer;padding:4px}.gift-content{padding:16px;display:flex;flex-direction:column;gap:9px;flex:1}.gift h3{font-size:15px;margin:0;color:var(--navy);line-height:1.5}.tag{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--blue)}.gift p{font-size:13px;color:var(--muted);margin:0}.gift .actions{display:grid;gap:8px;margin-top:auto;padding-top:7px}.gift .actions a{background:#f5c95d;border:1px solid #e2b84c;color:#182943}.gift .btn{width:100%;font-size:13px;padding:11px}.status{font-size:12px;font-weight:700;color:#36744d}.status.taken{color:#9a3d32;background:#fff0ed;border:1px solid #f0d1ca;border-radius:7px;padding:7px 9px;display:inline-block;align-self:flex-start}.gift[hidden]{display:none}.pix-gift{border-color:#d8c69f;background:#fbf8f0}.pix-gift .gift-content{gap:7px}.pix-gift .tag{color:#8a6a24}.pix-gift .btn{background:#10243e;color:#fff}.pixbox{max-width:760px;margin:auto;background:var(--navy);color:white;border-radius:20px;padding:28px;text-align:center}.pixbox h3{font:500 28px 'Playfair Display',serif;margin:0 0 8px}.pixbox p{color:#e2e9f0;line-height:1.7}.pixkey{background:#ffffff12;border:1px dashed #ffffff55;border-radius:10px;padding:13px;word-break:break-word;margin:15px 0}.footer{text-align:center;background:#101f33;color:#e1e8ef;padding:30px 20px;font-size:13px;line-height:1.8}.admin{max-width:760px;margin:25px auto 0}.admin summary{cursor:pointer;color:var(--muted);text-align:center;font-size:12px}.admin .panel{margin-top:12px}.small{font-size:12px;color:var(--muted);line-height:1.6}.empty{text-align:center;color:var(--muted);grid-column:1/-1;padding:30px}.hidden{display:none!important}
@@ -128,33 +128,33 @@ const IMAGENS={
   'e761df54-f4ea-5718-b621-a24c7fccdff0':'imagens/xicaraceramica.png',
   '581cf5cf-5f7e-5ae6-9fbc-24864f1749b2':'imagens/tacas.png',
   '6664e787-0dbd-5e9d-a557-f99f537dc583':'imagens/talheres.png',
-  '9cebb3b5-f7ea-5871-9e72-c3cf16124615':'imagens/travessas.jpg',
+  '9cebb3b5-f7ea-5871-9e72-c3cf16124615':'imagens/travessas.png',
   '776346cb-6827-5a9d-9fd4-e4c7b32060ec':'imagens/jarra.png',
-  'f1d3f841-5ef5-5beb-a58b-e9f5a963c59f':'imagens/garrafa-de-cafe.jpg',
+  'f1d3f841-5ef5-5beb-a58b-e9f5a963c59f':'imagens/garrafacafe.png',
   'cfec89f0-72f1-5bcf-a84e-29cb81829807':'imagens/boleira.png',
-  '29d32e05-254a-5680-8f8b-40403e7bbda7':'imagens/potes-de-mantimentos.jpg',
-  'bb5ba461-bbc7-55eb-b958-479d26b5d76e':'imagens/saleiro.jpg',
-  'cdf74d1f-f34d-5d1c-8779-fb4bec36689d':'imagens/porta-temperos.jpg',
+  '29d32e05-254a-5680-8f8b-40403e7bbda7':'imagens/quinzepotes.png',
+  'bb5ba461-bbc7-55eb-b958-479d26b5d76e':'imagens/saleiro.png',
+  'cdf74d1f-f34d-5d1c-8779-fb4bec36689d':'imagens/temperos.png',
   'c3d21532-57d2-5e03-8782-10326bd31253':'imagens/fruteira.png',
-  'c4cd6dfe-8630-5326-bd70-83c79710488d':'imagens/escorredor-de-louca.jpg',
+  'c4cd6dfe-8630-5326-bd70-83c79710488d':'imagens/escorredor.png',
   'eb061a0d-2173-572d-94da-62c305285a2b':'imagens/pia.png',
-  'aa7c201e-7403-5ac4-b50a-128129b308df':'imagens/jogo-americano.jpg',
-  'cbd2da50-aeda-5b5c-8924-3567504fd5cb':'imagens/guardanapos.jpg',
-  '6a2f3f4c-c752-5619-9f08-8cb785bfb7d4':'imagens/tapetes-de-cozinha.jpg',
-  'c3d4b38d-f85b-5d46-b881-4959427221d0':'imagens/almofadas-para-sofa.jpg',
-  '14fb9b8c-82ab-54cf-a199-b83f08bcdc75':'imagens/cortina.jpg',
-  'e43c9b1b-e621-5042-84e7-eb2b91741106':'imagens/tapete-para-sala.jpg',
-  '77fda0ce-fc2a-5dc1-a8a9-c9f57d6053dd':'imagens/ventilador-de-teto.jpg',
-  '3ad0b937-b130-5fe1-85d4-28f9bb53ac0c':'imagens/porta-chaves.jpg',
-  '3a581645-37ad-587b-ab35-47e13eda8b08':'imagens/Protetor-de-colchão.jpg',
-  'f186688d-c32f-57f9-bf78-27ad099214bd':'imagens/kit-de-tapetes-para-banheiro.jpg',
+  'aa7c201e-7403-5ac4-b50a-128129b308df':'imagens/jogoamericano.png',
+  'cbd2da50-aeda-5b5c-8924-3567504fd5cb':'imagens/guardanapo.png',
+  '6a2f3f4c-c752-5619-9f08-8cb785bfb7d4':'imagens/tapetecozinha.png',
+  'c3d4b38d-f85b-5d46-b881-4959427221d0':'imagens/almofadas.png',
+  '14fb9b8c-82ab-54cf-a199-b83f08bcdc75':'imagens/cortina.png',
+  'e43c9b1b-e621-5042-84e7-eb2b91741106':'imagens/tapetesala.png',
+  '77fda0ce-fc2a-5dc1-a8a9-c9f57d6053dd':'imagens/ventiladorteto.png',
+  '3ad0b937-b130-5fe1-85d4-28f9bb53ac0c':'imagens/portachaves.png',
+  '3a581645-37ad-587b-ab35-47e13eda8b08':'imagens/Protetor.png',
+  'f186688d-c32f-57f9-bf78-27ad099214bd':'imagens/conjuntobanheiro.png',
   '3edf994a-f96d-5a26-a62b-fd45f2524d06':'imagens/toalha.png',
   'b3275a2f-0b5e-5d1f-b1cb-81d1a3c127e9':'imagens/mop.png',
   'c5a27bb9-298c-542d-85ab-b038e354911c':'imagens/balde.png',
-  '8f8d1f65-8902-50c1-97c4-c6c1b071cf07':'imagens/panos-de-chao.jpg',
-  '86c3d1e3-1c69-580d-afd5-ceb179b608c2':'imagens/aspirador-de-po.jpg',
+  '8f8d1f65-8902-50c1-97c4-c6c1b071cf07':'imagens/panochao.png',
+  '86c3d1e3-1c69-580d-afd5-ceb179b608c2':'imagens/aspirador.png',
   '2458f268-d084-54e9-be8d-625435e40723':'imagens/ferro.png',
-  'a36ce095-5645-56d2-90b5-f29645cc1aa2':'imagens/tabua-de-passar-roupa.jpg'
+  'a36ce095-5645-56d2-90b5-f29645cc1aa2':'imagens/tabuaroupa.png'
 };
 let selectedAnswer='yes',activeCategory='Todos',supabaseClient=null,gifts=[];
 const $=id=>document.getElementById(id);
