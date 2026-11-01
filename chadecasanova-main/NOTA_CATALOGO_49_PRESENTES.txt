@@ -1,0 +1,5 @@
+Catálogo revisado: 49 itens (48 da lista enviada + Jogo de cama).
+Categorias revisadas: Cozinha (33), Sala (6), Quarto (2), Banheiro (2), Limpeza e lavanderia (6).
+Os links enviados na lista original foram preservados nos itens correspondentes; itens sem link informado permanecem sem link.
+O site inclui filtro “Limpeza e lavanderia”.
+Execute o SQL no Supabase e publique os arquivos atualizados para refletir as alterações online.

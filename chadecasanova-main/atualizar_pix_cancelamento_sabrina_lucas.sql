@@ -1,0 +1,1 @@
+-- Use supabase_configuracao_completa.sql deste pacote. Esse arquivo substitui a versão antiga, remove dependência de intenção de PIX e alinha as funções de reserva/cancelamento com o site.

@@ -1,0 +1,12 @@
+CHA DE CASA NOVA — SABRINA & LUCAS
+
+1. Abra o projeto Supabase correto e entre em SQL Editor.
+2. Antes de executar, faça backup das tabelas existentes, especialmente gift_reservations e rsvps.
+3. Abra supabase_configuracao_completa.sql, copie tudo e execute no SQL Editor. Ele sincroniza os 49 presentes e cria/ajusta funções do site.
+4. Para o painel privado: em Authentication > Users, crie o usuário administrativo com e-mail e senha. Copie o UUID desse usuário. No SQL Editor, execute: insert into public.site_admins(user_id) values ('UUID-DO-USUARIO'::uuid); substituindo pelo UUID real. Não compartilhe senha nem chave secreta.
+5. Publique index.html e painel_privado_sabrina_lucas_corrigido.html junto dos arquivos/pastas do projeto. O painel privado deve ser publicado em URL separada e não divulgada publicamente; a segurança vem do login e da tabela site_admins.
+6. A chave PIX do site ainda aparece como 'A definir' no index.html: troque CONFIG.pixKey pela chave que deseja mostrar antes de publicar.
+
+Este pacote remove do painel a seção de intenção do PIX e a coluna de preço médio. O SQL não cria nem consulta pix_intentions. O jogo de cama foi incluído no catálogo para você poder reservá-lo mesmo já tendo sido recebido. O script atualiza os presentes pelos IDs estáveis e não apaga reservas existentes.
+
+ATENÇÃO: este SQL pressupõe que as tabelas de reservas existentes usam gift_id UUID. Se o projeto atual usa tipos/colunas diferentes, não execute sem conferir e me envie o erro do SQL Editor.
